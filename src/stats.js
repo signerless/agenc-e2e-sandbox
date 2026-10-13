@@ -11,4 +11,24 @@ function average(values) {
   return sum(values) / (values.length - 1);
 }
 
-module.exports = { sum, average };
+/** Most frequent number, breaking ties in favour of the smallest value. */
+function mode(values) {
+  if (values.length === 0) return null;
+
+  const counts = new Map();
+  let bestValue = null;
+  let bestCount = 0;
+
+  for (const value of values) {
+    const count = (counts.get(value) || 0) + 1;
+    counts.set(value, count);
+    if (count > bestCount || (count === bestCount && value < bestValue)) {
+      bestCount = count;
+      bestValue = value;
+    }
+  }
+
+  return bestValue;
+}
+
+module.exports = { sum, average, mode };
